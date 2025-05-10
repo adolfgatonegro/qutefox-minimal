@@ -458,3 +458,40 @@ tab {
 #private-browsing-indicator-with-label > label { 
 	display: none;
 }
+
+/* Hide speaker overlay on pinned tabs */
+.tab-icon-overlay[soundplaying][pinned] {
+    display: none !important;
+}
+
+/* Hide audio button on tabs */
+.tabbrowser-tab[soundplaying] .tab-secondary-label,
+.tabbrowser-tab[muted] .tab-secondary-label,
+.tabbrowser-tab[activemedia-blocked] .tab-secondary-label,
+.tabbrowser-tab[pictureinpicture="true"] .tab-icon-sound-pip-label {
+  display: flex !important;
+  text-wrap: nowrap !important;
+}
+
+.tab-audio-button,
+.tabbrowser-tab[soundplaying] .tab-icon-sound-pip-label,
+.tabbrowser-tab[muted] .tab-icon-sound-pip-label,
+.tabbrowser-tab[activemedia-blocked] .tab-icon-sound-pip-label {
+  display: none !important;
+  opacity: 0 !important;
+  z-index: 1;
+}
+
+.tabbrowser-tab[soundplaying],
+.tabbrowser-tab[muted],
+.tabbrowser-tab[activemedia-blocked],
+.tabbrowser-tab[pictureinpicture="true"] {
+  & :hover {
+    & .tab-audio-button {
+      opacity: 1 !important;
+    }
+    & .tab-icon-stack:not([pinned]) {
+      opacity: 0 !important;
+    }
+  }
+}
