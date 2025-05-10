@@ -8,7 +8,7 @@
 
 	--tab-active-fg-fallback-color: #c1c1d1;		/* color of text in an active tab without a container */
 	--tab-inactive-fg-fallback-color: #6c6c93;		/* color of text in an inactive tab without a container */
-	--toolbar-bgcolor: #111117 !important;
+	--toolbar-bgcolor: #262639 !important;
 	--tab-font: 'Cozette';
 	--urlbar-font: 'monospace';
 
@@ -17,7 +17,7 @@
 	--tab-private-icon-colour: #00ffe0;	/* colour of the private icon */
 
 	/* try increasing if you encounter problems */
-	--urlbar-height-setting: 24px;
+	--urlbar-height-setting: 21px;
 	--tab-min-height: 15px !important;
 
 	/* I don't recommend you touch this unless you know what you're doing */
@@ -25,7 +25,7 @@
 	--arrowpanel-border-radius: 0px !important;
 	--arrowpanel-menuitem-border-radius: 0px !important;
 	--toolbarbutton-border-radius: 0px !important;
-	--toolbarbutton-inner-padding: 0px 2px !important;
+	--toolbarbutton-inner-padding: 0px !important;
 	--toolbar-field-focus-background-color: var(--urlbar-focused-bg-color) !important;
 	--toolbar-field-background-color: var(--urlbar-not-focused-bg-color) !important;
 	--toolbar-field-focus-border-color: transparent !important;
@@ -39,12 +39,12 @@ See the above repository for updates as well as full license text. */
 #navigator-toolbox{
   --uc-bm-padding: 4px; /* Vertical padding to be applied to bookmarks */
   --uc-bm-height: calc(20px + 2 * var(--uc-bm-padding)); /* Might need to adjust if the toolbar has other buttons */
-  --uc-navbar-height: -24px; /* navbar is main toolbar. Use negative value */
+  --uc-navbar-height: -21px; /* navbar is main toolbar. Use negative value */
   --uc-autohide-toolbar-delay: 600ms; /* The toolbar is hidden after 0.6s */
   --uc-toolbox-browser-area-overlap: -1px;
 }
 :root[uidensity="compact"] #navigator-toolbox{
-  --uc-navbar-height: -24px;
+  --uc-navbar-height: -21px;
 }
 :root[uidensity="touch"] #navigator-toolbox{ --uc-bm-padding: 6px }
 
@@ -266,8 +266,8 @@ menu, menuitem, menucaption { border-radius: 0px !important; }
 /*****************************************************************************/
 
 /* Remove padding between toolbar buttons */
-toolbar .toolbarbutton-1 { padding: 0 0 !important; }
-toolbarbutton  12px !important;
+toolbar .toolbarbutton-1 { padding: 0 0 !important; transform: scale(0.8, 0.8) !important; }
+toolbarbutton  10px !important;
 /* Add padding to the right of the last button so that it doesn't touch the edge of the window */
 #PanelUI-menu-button {
 	padding: 0px 4px 0px 0px !important;
@@ -291,7 +291,7 @@ toolbarbutton  12px !important;
 }
 
 #urlbar-input {
-	margin-left: 0.8em !important;
+	margin-left: 0.4em !important;
 	margin-right: 0.4em !important;
 }
 
