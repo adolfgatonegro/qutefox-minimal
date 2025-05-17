@@ -266,8 +266,8 @@ menu, menuitem, menucaption { border-radius: 0px !important; }
 /*****************************************************************************/
 
 /* Remove padding between toolbar buttons */
-toolbar .toolbarbutton-1 { padding: 0 0 !important; transform: scale(0.8, 0.8) !important; }
-toolbarbutton  10px !important;
+toolbar .toolbarbutton-1, .urlbar-input-container box, .urlbar-icon { padding: 0 0 !important; transform: scale(0.8) !important; }
+
 /* Add padding to the right of the last button so that it doesn't touch the edge of the window */
 #PanelUI-menu-button {
 	padding: 0px 4px 0px 0px !important;
