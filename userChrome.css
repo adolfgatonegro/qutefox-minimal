@@ -9,7 +9,7 @@
 	--tab-active-fg-fallback-color: #c1c1d1;		/* color of text in an active tab without a container */
 	--tab-inactive-fg-fallback-color: #6c6c93;		/* color of text in an inactive tab without a container */
 	--toolbar-bgcolor: #262639 !important;
-	--tab-font: 'Cozette';
+	--tab-font: 'CozetteVector';
 	--urlbar-font: 'monospace';
 
 	/* private mode icon and colour */
@@ -361,7 +361,7 @@ toolbar .toolbarbutton-1, .urlbar-input-container box, .urlbar-icon { padding: 0
 
 #TabsToolbar, .tabbrowser-tab {
 	min-height: var(--tab-min-height) !important;
-	font-size: 11px !important;
+	font-size: 13px !important;
 }
 
 /* Change color of normal tabs */
