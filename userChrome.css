@@ -428,6 +428,9 @@ tab {
 .tabbrowser-tab:nth-child(1 of :not([pinned], [hidden])) {
 	margin-inline-start: 0px !important;
 }
+#pinned-tabs-container[orient="horizontal"]{
+	margin-inline-end: 0px !important;
+}
 
 /* Remove dropdown menu button which displays all tabs on overflow */
 #alltabs-button { display: none !important }
