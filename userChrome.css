@@ -1,34 +1,15 @@
 :root {
-	--tab-active-bg-color: #111117;		/* background color of an active tab */
-	--tab-inactive-bg-color: #262639;		/* background color of an inactive tab */
-	--tab-active-fg-fallback-color: #c1c1d1;	/* color of text in an active tab without a container */
-	--tab-inactive-fg-fallback-color: #6c6c93;	/* color of text in an inactive tab without a container */
-	--urlbar-focused-bg-color: #262639;
-	--urlbar-not-focused-bg-color: #262639;
-
-	--tab-active-fg-fallback-color: #c1c1d1;		/* color of text in an active tab without a container */
-	--tab-inactive-fg-fallback-color: #6c6c93;		/* color of text in an inactive tab without a container */
-	--toolbar-bgcolor: #262639 !important;
 	--tab-font: 'CozetteVector';
 	--urlbar-font: 'monospace';
 
-	/* private mode icon and colour */
-	--tab-private-icon: "P"; /* icon to be displayed to the left of the tab titles in private windows */
-	--tab-private-icon-colour: #00ffe0;	/* colour of the private icon */
-
 	/* try increasing if you encounter problems */
-	--urlbar-height-setting: 21px;
-	--tab-min-height: 15px !important;
+	--urlbar-height-setting: 22px;
+	--tab-min-height: 26px !important;
+  --tab-block-margin: 0px !important;
 
 	/* I don't recommend you touch this unless you know what you're doing */
 	--arrowpanel-menuitem-padding: 2px !important;
-	--arrowpanel-border-radius: 0px !important;
-	--arrowpanel-menuitem-border-radius: 0px !important;
-	--toolbarbutton-border-radius: 0px !important;
 	--toolbarbutton-inner-padding: 0px !important;
-	--toolbar-field-focus-background-color: var(--urlbar-focused-bg-color) !important;
-	--toolbar-field-background-color: var(--urlbar-not-focused-bg-color) !important;
-	--toolbar-field-focus-border-color: transparent !important;
 	--uc-autohide-toolbox-delay: 500ms;
 	--uc-toolbox-rotation: 82deg;
 }
@@ -206,9 +187,6 @@ See the above repository for updates as well as full license text. */
 /* GENERAL UI TWEAKS                                                         */
 /*****************************************************************************/
 
-/* Remove radius from context menu */
-menupopup, panel { --panel-border-radius: 0px !important; }
-menu, menuitem, menucaption { border-radius: 0px !important; }
 
 /* Move status panel to the right */
 #statuspanel-label {
@@ -260,17 +238,20 @@ menu, menuitem, menucaption { border-radius: 0px !important; }
 #star-button { display: none !important; }
 #star-button-box:hover { background: inherit !important; }
 #star-button-box { display: none !important; }
+#urlbar-searchmode-switcher { display: none; }
+#searchmode-switcher-chicklet { display: none !important; }
 
 /*****************************************************************************/
 /* NAVBAR STYLING                                                            */
 /*****************************************************************************/
 
 /* Remove padding between toolbar buttons */
-toolbar .toolbarbutton-1, .urlbar-input-container box, .urlbar-icon { padding: 0 0 !important; transform: scale(0.8) !important; }
+toolbar .toolbarbutton-1{
+  padding: 2px 4px !important;
+}
 
-/* Add padding to the right of the last button so that it doesn't touch the edge of the window */
-#PanelUI-menu-button {
-	padding: 0px 4px 0px 0px !important;
+toolbar .toolbarbutton-1, .urlbar-input-container box, .urlbar-icon {
+  transform: scale(0.8) !important;
 }
 
 #urlbar-container {
@@ -374,6 +355,7 @@ tab {
 	font-family: var(--tab-font, monospace);
 	font-weight: normal;
 	border: none !important;
+  padding: 0px !important;
 }
 
 /* Hide close button on tabs */
@@ -383,7 +365,7 @@ tab {
 .tabbrowser-tab .tab-icon-image { transform: scale(0.80) !important; }
 
 /* Hide favicons except for pinned tabs */
-.tab-icon-stack:not([pinned]) { display: none !important; }
+.tab-icon-stack:not([pinned]) { display: none !important; }*/
 
 .tabbrowser-tab {
 	/* Remove border between tabs */
@@ -394,16 +376,27 @@ tab {
 	overflow-clip-margin: 0px !important;
 }
 
-/* Tab: selected colors */
-#tabbrowser-tabs .tabbrowser-tab[selected] .tab-content {
-	background: var(--tab-active-bg-color) !important;
-	color: var(--identity-icon-color, var(--tab-active-fg-fallback-color)) !important;
+/* Center tab label */
+/* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/centered_tab_label.css made available under Mozilla Public License v. 2.0
+See the above repository for updates as well as full license text. */
+
+.tab-label-container{
+  display: grid;
+  align-content: center;
 }
 
-/* Tab: hovered colors */
-#tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-content {
-	background: var(--tab-active-bg-color) !important;
+.tab-secondary-label{
+  justify-content: center;
 }
+
+.tab-label,
+.tab-secondary-label{ overflow: hidden }
+
+.tabbrowser-tab[selected]:not(:hover) .tab-label-container:not([labeldirection="rtl"]),
+#tabbrowser-tabs:not([closebuttons="activetab"]) .tabbrowser-tab:not(:hover,[pinned]) .tab-label-container:not([labeldirection="rtl"]){
+  margin-inline-end: 0 !important;
+}
+/* End Center tab label */
 
 /* Hide window controls */
 .titlebar-buttonbox-container { display: none; }
@@ -420,6 +413,11 @@ tab {
 /* Disable tab shadow */
 #tabbrowser-tabs:not([noshadowfortests]) .tab-background:is([selected], [multiselected]) {
     box-shadow: none !important;
+}
+
+/* Disable tab border radius */
+.tab-background {
+    border-radius: 0px !important;
 }
 
 /* Remove dark space between pinned tab and first non-pinned tab */
@@ -449,17 +447,8 @@ tab {
 }
 
 /* Hide private browsing indicator */
-#private-browsing-indicator-with-label {
- 	display: none;
-}
-
-#main-window[privatebrowsingmode] #tabbrowser-tabs .tabbrowser-tab .tab-content:before {
-	content: var(--tab-private-icon);
-	margin-right: 1em; 
-	color: var(--tab-private-icon-colour)
-}
-#private-browsing-indicator-with-label > label { 
-	display: none;
+.private-browsing-indicator-label {
+ 	display: none !important;
 }
 
 /* Hide speaker overlay on pinned tabs */

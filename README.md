@@ -21,9 +21,11 @@ shortcuts can be accessed this way if necessary.
 
 ![](./screenshots/regular_hover.png)
 
-Even with everything visible, the UI is quite minimal and unobtrusive.
+This modification ought to work with most (any?) Firefox themes, but is made
+with the [Adaptive Tab Bar Colour](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour)
+extension in mind.
 
-![](./screenshots/tridactyl_hover.png)
+![](./screenshots/auto_colour.png)
 
 ## How to use
 
