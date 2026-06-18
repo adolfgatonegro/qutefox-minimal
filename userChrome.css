@@ -2,10 +2,11 @@
 	--tab-font: 'CozetteVector';
 	--urlbar-font: 'monospace';
 
+	--button-border-radius: 0 !important; /* Disable border radius for a bunch of elements */
 	/* try increasing if you encounter problems */
 	--urlbar-height-setting: 22px;
 	--tab-min-height: 26px !important;
-  --tab-block-margin: 0px !important;
+	--tab-block-margin: 0px !important;
 
 	/* I don't recommend you touch this unless you know what you're doing */
 	--arrowpanel-menuitem-padding: 2px !important;
@@ -20,12 +21,12 @@ See the above repository for updates as well as full license text. */
 #navigator-toolbox{
   --uc-bm-padding: 4px; /* Vertical padding to be applied to bookmarks */
   --uc-bm-height: calc(20px + 2 * var(--uc-bm-padding)); /* Might need to adjust if the toolbar has other buttons */
-  --uc-navbar-height: -21px; /* navbar is main toolbar. Use negative value */
+  --uc-navbar-height: -30px; /* navbar is main toolbar. Use negative value */
   --uc-autohide-toolbar-delay: 600ms; /* The toolbar is hidden after 0.6s */
   --uc-toolbox-browser-area-overlap: -1px;
 }
 :root[uidensity="compact"] #navigator-toolbox{
-  --uc-navbar-height: -21px;
+  --uc-navbar-height: -30px;
 }
 :root[uidensity="touch"] #navigator-toolbox{ --uc-bm-padding: 6px }
 
@@ -36,10 +37,10 @@ See the above repository for updates as well as full license text. */
   --uc-navbar-height: 0px;
 }
 /* At least on Windows 10 display scaling > 100% causes 1px gap to appear below tabs depending on Firefox
- *  density settings and whether or not menubar is enabled. 
+ *  density settings and whether or not menubar is enabled.
  */
 @media (min-resolution: 120dpi){
-  :root[uidensity="compact"] #navigator-toolbox:has(> #toolbar-menubar[autohide="false"]){
+  :root[uidensity="compact"] #navigator-toolbox:has(> #toolbar-menubar:is([autohide="false"],:not([autohide]))){
     --uc-toolbox-browser-area-overlap: -0.5px;
   }
 }
@@ -89,16 +90,18 @@ See the above repository for updates as well as full license text. */
   transform-origin: 0px var(--uc-navbar-height);
   position: relative;
 }
-:root[sessionrestored] #urlbar[popover]{
+:root[sessionrestored] :is(.urlbar,#urlbar[popover]){
   opacity: 0;
   pointer-events: none;
   transition: transform 135ms linear var(--uc-autohide-toolbar-delay), opacity 0ms calc(var(--uc-autohide-toolbar-delay) + 135ms);
   transform-origin: 0px calc((var(--urlbar-container-height) - var(--urlbar-height)) / 2);
   transform: rotateX(89.5deg);
 }
-#mainPopupSet:has(> [panelopen]:not(#ask-chat-shortcuts,#selection-shortcut-action-panel,#chat-shortcuts-options-panel,#tab-preview-panel)) ~ toolbox #urlbar[popover],
-#navigator-toolbox:is(:hover,:focus-within) #urlbar[popover],
-#urlbar-container > #urlbar[popover]:is([focused],[open]){
+:root:is([window-modal-open],[customizing]) toolbar :is(.urlbar,#urlbar[popover]),
+#mainPopupSet:has(> [panelopen]:not(#ask-chat-shortcuts,#selection-shortcut-action-panel,#chat-shortcuts-options-panel,#tab-preview-panel)) ~ toolbox :is(.urlbar,#urlbar[popover]),
+#navigator-toolbox:is(:hover,:focus-within) :is(.urlbar,#urlbar[popover]),
+:where(:root[sessionrestored]) #nav-bar #searchbar-new[popover]:is([focused],[open]),
+:where(:root[sessionrestored]) #urlbar-container > #urlbar[popover]:is([focused],[open]){
   opacity: 1;
   pointer-events: auto;
   transition-delay: 100ms;
@@ -129,6 +132,12 @@ See the above repository for updates as well as full license text. */
 /* Selected tab needs higher z-index now to "hide" the broder below it */
 .tabbrowser-tab[selected]{ z-index: 3 !important; }
 
+/* Show toolbars when a window modal dialog is open, otherwise toolbar layout breaks after closing the dialog */
+:root[window-modal-open] :is(#nav-bar,#PersonalToolbar){
+  transition-delay: 100ms !important;
+  transform: rotateX(0);
+}
+
 /* SELECT TOOLBAR BEHAVIOR */
 /* Comment out or delete one of these to disable that behavior */
 
@@ -148,23 +157,21 @@ See the above repository for updates as well as full license text. */
 
 /* This makes the tab notification box show immediately below tabs, otherwise it would break the layout */
 #navigator-toolbox > div{ display: contents }
-:where(#titlebar,#navigator-toolbox > #TabsToolbar,#navigator-toolbox > #toolbar-menubar,#tab-notification-deck,.global-notificationbox,#notifications-toolbar){
+:where(#navigator-toolbox > #TabsToolbar,#navigator-toolbox > #toolbar-menubar,#tab-notification-deck,.global-notificationbox,#notifications-toolbar){
   order: -1;
 }
 :root[BookmarksToolbarOverlapsBrowser] #navigator-toolbox{
   margin-bottom: calc(-1px - var(--uc-bm-height) + var(--uc-navbar-height)) !important;
   z-index: auto !important;
 }
-@media (-moz-bool-pref: "browser.fullscreen.autohide"),
-       -moz-pref("browser.fullscreen.autohide"){
+@media -moz-pref("browser.fullscreen.autohide"){
   :root[sizemode="fullscreen"] #navigator-toolbox[style*="margin-top"]{
     margin-top: calc(1px - var(--tab-min-height) - 2 * var(--tab-block-margin)) !important;
   }
 }
 
 /* Set the following pref to enable compatibility with multi-row_bookmarks.css */
-@media (-moz-bool-pref: "userchrome.autohide-bm-and-main-toolbars.multirow-bookmarks-compat.enabled"),
-       -moz-pref("userchrome.autohide-bm-and-main-toolbars.multirow-bookmarks-compat.enabled"){
+@media -moz-pref("userchrome.autohide-bm-and-main-toolbars.multirow-bookmarks-compat.enabled"){
   #navigator-toolbox{ margin-bottom: var(--uc-navbar-height) !important; }
   #PersonalToolbar:not([customizing]){
     min-height: 0 !important;
@@ -291,6 +298,21 @@ toolbar .toolbarbutton-1, .urlbar-input-container box, .urlbar-icon {
 /* Make browser dialog boxes not overlap the navbar */
 :not(.content-prompt-dialog) > .dialogOverlay > .dialogBox:not(.spotlightBox) {
 	margin-top: 0px !important;
+}
+
+.urlbar {
+  --urlbar-height: 24px !important;
+}
+.urlbar-background, #searchbar {
+    --toolbar-field-background-color: transparent!important;
+    --toolbar-field-border-color: transparent!important;
+    --urlbar-container-border-width: 0!important;
+}
+.urlbar-container {
+  --urlbar-container-height: 24px !important;
+}
+.urlbar-input {
+  margin-top: -2px !important;
 }
 
 /*****************************************************************************/
