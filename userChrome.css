@@ -6,7 +6,7 @@
 	/* try increasing if you encounter problems */
 	--urlbar-height-setting: 22px;
 	--tab-min-height: 26px !important;
-	--tab-block-margin: 0px !important;
+	--tab-margin-block: 0px !important;
 
 	/* I don't recommend you touch this unless you know what you're doing */
 	--arrowpanel-menuitem-padding: 2px !important;
@@ -62,7 +62,7 @@ See the above repository for updates as well as full license text. */
 :root[sessionrestored] #PersonalToolbar{
   background-image: linear-gradient(var(--toolbar-bgcolor),var(--toolbar-bgcolor)), var(--lwt-additional-images,var(--toolbar-bgimage))  !important;
   background-position: top,var(--lwt-background-alignment);
-  background-position-y: calc(0px - var(--tab-min-height) - 2*var(--tab-block-margin,0px));
+  background-position-y: calc(0px - var(--tab-min-height) - 2*var(--tab-margin-block,0px));
   background-repeat: repeat,var(--lwt-background-tiling);
   transform: rotateX(90deg);
   transform-origin: top;
@@ -76,7 +76,7 @@ See the above repository for updates as well as full license text. */
 }
 :root[sessionrestored] #PersonalToolbar{
   z-index: 1;
-  background-position-y: calc(0px - var(--tab-min-height) - 2*var(--tab-block-margin,0px) + var( --uc-navbar-height));
+  background-position-y: calc(0px - var(--tab-min-height) - 2*var(--tab-margin-block,0px) + var( --uc-navbar-height));
 }
 
 :root[lwtheme-image] #nav-bar,
@@ -166,7 +166,7 @@ See the above repository for updates as well as full license text. */
 }
 @media -moz-pref("browser.fullscreen.autohide"){
   :root[sizemode="fullscreen"] #navigator-toolbox[style*="margin-top"]{
-    margin-top: calc(1px - var(--tab-min-height) - 2 * var(--tab-block-margin)) !important;
+    margin-top: calc(1px - var(--tab-min-height) - 2 * var(--tab-margin-block)) !important;
   }
 }
 
@@ -358,8 +358,8 @@ toolbar .toolbarbutton-1, .urlbar-input-container box, .urlbar-icon {
 /* --- STYLE TAB TOOLBAR -------------------------------- */
 
 #titlebar {
-	--proton-tab-block-margin: 0px !important;
-	--tab-block-margin: 0px !important;
+	--proton-tab-margin-block: 0px !important;
+	--tab-margin-block: 0px !important;
 }
 
 #TabsToolbar, .tabbrowser-tab {
