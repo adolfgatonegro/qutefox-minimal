@@ -1,5 +1,5 @@
 :root {
-	--tab-font: 'CozetteVector';
+	--tab-font: 'serif';
 	--urlbar-font: 'monospace';
 
 	--button-border-radius: 0 !important; /* Disable border radius for a bunch of elements */
